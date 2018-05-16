@@ -185,62 +185,94 @@ public class Tablero extends javax.swing.JFrame {
         int posY = Integer.parseInt(coordenadas[1]);
         int angulo45 = angulo.getAngulo45(Integer.parseInt(coordenadas[0]), Integer.parseInt(coordenadas[1]));
         int angulo135 = angulo.getAngulo135(Integer.parseInt(coordenadas[0]), Integer.parseInt(coordenadas[1]));
-        System.out.println("posX "+posX);
-        System.out.println("posY "+posY);
-        System.out.println("angullo45 "+angulo45);
-        System.out.println("angluo135 "+angulo135);
+        System.out.println("posX " + posX);
+        System.out.println("posY " + posY);
+        System.out.println("angullo45 " + angulo45);
+        System.out.println("angluo135 " + angulo135);
 
         //Movimiento naranja (diagonal)
-        if (tablero[posX][posY] == 0 && (angulo45 == a45 && adyacencia45(posX, posY, presX, presY))) {
-            tablero[posX][posY] = 2;
-            campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
-            tablero[presX][presY] = 0;
-            campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png")));
-        } else if (tablero[posX][posY] == 0 && (angulo135 == a135 && adyacencia135(posX, posY, presX, presY))) {
-            tablero[posX][posY] = 2;
-            campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
-            tablero[presX][presY] = 0;
-            campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png")));
-        } else if (tablero[posX][posY] == 0 && adyacenciaX(posX, posY, presX, presY)) {
-            tablero[posX][posY] = 2;
-            campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
-            tablero[presX][presY] = 0;
-            campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png")));
-        }
+        if (tablero[posX][posY] == 0 && presX!=0&& presY!=0) {
 
-        //
+            if ((angulo45 == a45 && adyacencia45(posX, posY, presX, presY,1))) {
+                tablero[posX][posY] = 2;
+                campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
+                tablero[presX][presY] = 0;
+                campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png")));
+            }else if ((angulo45 == a45 && adyacencia45(posX, posY, presX, presY,2))) {
+                tablero[posX][posY] = 2;
+                campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
+                tablero[presX][presY] = 0;
+                campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png")));
+            }else if ((angulo45 == a45 && adyacencia45(posX, posY, presX, presY,3))) {
+                tablero[posX][posY] = 2;
+                campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
+                tablero[presX][presY] = 0;
+                campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png")));
+            } else if ((angulo135 == a135 && adyacencia135(posX, posY, presX, presY,1))) {
+                tablero[posX][posY] = 2;
+                campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
+                tablero[presX][presY] = 0;
+                campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png")));
+            }else if ((angulo135 == a135 && adyacencia135(posX, posY, presX, presY,2))) {
+                tablero[posX][posY] = 2;
+                campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
+                tablero[presX][presY] = 0;
+                campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png")));
+            }else if ((angulo135 == a135 && adyacencia135(posX, posY, presX, presY,3))) {
+                tablero[posX][posY] = 2;
+                campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
+                tablero[presX][presY] = 0;
+                campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png")));
+            } else if (adyacenciaX(posX, posY, presX, presY,1)) {
+                tablero[posX][posY] = 2;
+                campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
+                tablero[presX][presY] = 0;
+                campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png")));
+            }else if (adyacenciaX(posX, posY, presX, presY,2)) {
+                tablero[posX][posY] = 2;
+                campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
+                tablero[presX][presY] = 0;
+                campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png")));
+            }else if (adyacenciaX(posX, posY, presX, presY,3)) {
+                tablero[posX][posY] = 2;
+                campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
+                tablero[presX][presY] = 0;
+                campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png")));
+            }
+            presX=0;
+            presY=0;
+        } //
         else if (tablero[posX][posY] == 2) {
-            campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negroPress.png")));
-            
+            campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negroPress.png")));
+
             presX = Integer.parseInt(coordenadas[0]);
             presY = Integer.parseInt(coordenadas[1]);
             a45 = angulo.getAngulo45(posX, posY);
             a135 = angulo.getAngulo135(posX, posY);
-        }
-        else if (tablero[presX][presY] == 2) {
+        } else if (tablero[presX][presY] == 2) {
             campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
         }
         System.out.println("--");
-        System.out.println("presX "+presX);
-        System.out.println("presY "+presY);
-        System.out.println("a45 "+a45);
-        System.out.println("a135 "+a135);
+        System.out.println("presX " + presX);
+        System.out.println("presY " + presY);
+        System.out.println("a45 " + a45);
+        System.out.println("a135 " + a135);
         System.out.println("");
 
     }
 
-    public boolean adyacencia135(int nuevox, int nuevoy, int viejox, int viejoy) {
-        return (nuevox - 1 == viejox && nuevoy - 1 == viejoy) || (nuevox + 1 == viejox && nuevoy + 1 == viejoy);
+    public boolean adyacencia135(int nuevox, int nuevoy, int viejox, int viejoy, int n) {
+        return (nuevox - n == viejox && nuevoy - n == viejoy) || (nuevox + n == viejox && nuevoy + n == viejoy);
 
     }
 
-    public boolean adyacencia45(int nuevox, int nuevoy, int viejox, int viejoy) {
-        return (nuevox - 1 == viejox && nuevoy + 1 == viejoy) || (nuevox + 1 == viejox && nuevoy - 1 == viejoy);
+    public boolean adyacencia45(int nuevox, int nuevoy, int viejox, int viejoy, int n) {
+        return (nuevox - n == viejox && nuevoy + n == viejoy) || (nuevox + n == viejox && nuevoy - n == viejoy);
 
     }
 
-    public boolean adyacenciaX(int nuevox, int nuevoy, int viejox, int viejoy) {
-        return (nuevox  == viejox && nuevoy-2 == viejoy) || (nuevox == viejox && nuevoy+2 == viejoy);
+    public boolean adyacenciaX(int nuevox, int nuevoy, int viejox, int viejoy, int n) {
+        return (nuevox == viejox && nuevoy - n*2 == viejoy) || (nuevox == viejox && nuevoy + n*2 == viejoy);
 
     }
 
