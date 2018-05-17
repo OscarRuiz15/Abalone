@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 
 public class Tablero extends javax.swing.JFrame {
 
@@ -16,6 +17,11 @@ public class Tablero extends javax.swing.JFrame {
     private int presY;
     private int a45;
     private int a135;
+    private int fuerablanco;
+    private int fueranegro;
+    private final ImageIcon imgblanco=new javax.swing.ImageIcon(getClass().getResource("/images/blanco.png"));
+    private final ImageIcon imgnegro=new javax.swing.ImageIcon(getClass().getResource("/images/negro.png"));
+    private final ImageIcon imgvacio=new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png"));
 
     public Tablero() {
         initComponents();
@@ -191,57 +197,85 @@ public class Tablero extends javax.swing.JFrame {
         System.out.println("angluo135 " + angulo135);
 
         //Movimiento naranja (diagonal)
-        if (tablero[posX][posY] == 0 && presX!=0&& presY!=0) {
+        if (tablero[posX][posY] == 0 && presX != 0 && presY != 0) {
 
-            if ((angulo45 == a45 && adyacencia45(posX, posY, presX, presY,1))) {
-                tablero[posX][posY] = 2;
-                campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
-                tablero[presX][presY] = 0;
-                campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png")));
-            }else if ((angulo45 == a45 && adyacencia45(posX, posY, presX, presY,2))) {
-                tablero[posX][posY] = 2;
-                campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
-                tablero[presX][presY] = 0;
-                campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png")));
-            }else if ((angulo45 == a45 && adyacencia45(posX, posY, presX, presY,3))) {
-                tablero[posX][posY] = 2;
-                campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
-                tablero[presX][presY] = 0;
-                campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png")));
-            } else if ((angulo135 == a135 && adyacencia135(posX, posY, presX, presY,1))) {
-                tablero[posX][posY] = 2;
-                campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
-                tablero[presX][presY] = 0;
-                campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png")));
-            }else if ((angulo135 == a135 && adyacencia135(posX, posY, presX, presY,2))) {
-                tablero[posX][posY] = 2;
-                campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
-                tablero[presX][presY] = 0;
-                campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png")));
-            }else if ((angulo135 == a135 && adyacencia135(posX, posY, presX, presY,3))) {
-                tablero[posX][posY] = 2;
-                campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
-                tablero[presX][presY] = 0;
-                campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png")));
-            } else if (adyacenciaX(posX, posY, presX, presY,1)) {
-                tablero[posX][posY] = 2;
-                campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
-                tablero[presX][presY] = 0;
-                campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png")));
-            }else if (adyacenciaX(posX, posY, presX, presY,2)) {
-                tablero[posX][posY] = 2;
-                campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
-                tablero[presX][presY] = 0;
-                campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png")));
-            }else if (adyacenciaX(posX, posY, presX, presY,3)) {
-                tablero[posX][posY] = 2;
-                campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
-                tablero[presX][presY] = 0;
-                campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png")));
+            //Empujar 1 45°////////////////////////////////////////////////////////
+            if ((angulo45 == a45 && (adyacencia45Positivo(posX, posY, presX, presY, 1) || adyacencia45Negativo(posX, posY, presX, presY, 1)))) {
+                moverFicha(posX, posY, 2, imgnegro);
+                //Empujar 2 45°////////////////////////////////////////////////////////
+            } else if ((angulo45 == a45 && (adyacencia45Positivo(posX, posY, presX, presY, 2) || adyacencia45Negativo(posX, posY, presX, presY, 2)))) {
+                moverFicha(posX, posY, 2, imgnegro);
+                //Empujar 3 45°////////////////////////////////////////////////////////
+            } else if ((angulo45 == a45 && (adyacencia45Positivo(posX, posY, presX, presY, 3) || adyacencia45Negativo(posX, posY, presX, presY, 3)))) {
+                moverFicha(posX, posY, 2, imgnegro);
+            //Empujar 1 135°////////////////////////////////////////////////////////
+            } else if ((angulo135 == a135 && (adyacencia135Positivo(posX, posY, presX, presY, 1) || adyacencia135Negativo(posX, posY, presX, presY, 1)))) {
+                moverFicha(posX, posY, 2, imgnegro);
+                //Empujar 2 135°////////////////////////////////////////////////////////
+            } else if ((angulo135 == a135 && (adyacencia135Positivo(posX, posY, presX, presY, 2) || adyacencia135Negativo(posX, posY, presX, presY, 2)))) {
+                moverFicha(posX, posY, 2, imgnegro);
+                //Empujar 3 135°////////////////////////////////////////////////////////
+            } else if ((angulo135 == a135 && (adyacencia135Positivo(posX, posY, presX, presY, 3) || adyacencia135Negativo(posX, posY, presX, presY, 3)))) {
+                moverFicha(posX, posY, 2, imgnegro);
+                //Empujar 1 x////////////////////////////////////////////////////////
+            } else if ((adyacenciaXPositivo(posX, posY, presX, presY, 1) || adyacenciaXNegativo(posX, posY, presX, presY, 1))) {
+                moverFicha(posX, posY, 2, imgnegro);
+                //Empujar 2  x°////////////////////////////////////////////////////////
+            } else if ((adyacenciaXPositivo(posX, posY, presX, presY, 2) || adyacenciaXNegativo(posX, posY, presX, presY, 2))) {
+                moverFicha(posX, posY, 2, imgnegro);
+                //Empujar 3 x////////////////////////////////////////////////////////
+            } else if ((adyacenciaXPositivo(posX, posY, presX, presY, 3) || adyacenciaXNegativo(posX, posY, presX, presY, 3))) {
+                moverFicha(posX, posY, 2, imgnegro);
+                
             }
-            presX=0;
-            presY=0;
-        } //
+            presX = 0;
+            presY = 0;
+        }
+        if (tablero[posX][posY] == 1 && presX != 0 && presY != 0) {
+            //Empujar 2 45°////////////////////////////////////////////////////////
+            if ((angulo45 == a45 && adyacencia45Positivo(posX, posY, presX, presY, 2) && cantidadRivales45(posX, posY, 1) < 2)) {
+                
+                empujarRival(posX, posY, posX-1, posY+1, 2, 1, imgnegro, imgblanco);
+
+                //Empujar 3 45°////////////////////////////////////////////////////////
+            } else if (angulo45 == a45 &&adyacencia45Negativo(posX, posY, presX, presY, 2)&& cantidadRivales45(posX, posY, 1) < 2) {
+                empujarRival(posX, posY, posX+1, posY-1, 2, 1, imgnegro, imgblanco);//Empujar 3 45°////////////////////////////////////////////////////////
+
+            } else if ((angulo45 == a45 && (adyacencia45Positivo(posX, posY, presX, presY, 3))&&cantidadRivales45(posX, posY, 1) < 3)) {
+                empujarRival(posX, posY, posX-2, posY+2, 2, 1, imgnegro, imgblanco);
+                //Empujar 2 135°////////////////////////////////////////////////////////
+            } else if ((angulo45 == a45 && (adyacencia45Negativo(posX, posY, presX, presY, 3))&&cantidadRivales45(posX, posY, 1) < 3)) {
+                empujarRival(posX, posY, posX-2, posY+2, 2, 1, imgnegro, imgblanco);
+                //Empujar 2 135°////////////////////////////////////////////////////////
+            } else if ((angulo135 == a135 && (adyacencia135Positivo(posX, posY, presX, presY, 2)&&cantidadRivales135(posX, posY, 1) < 2 ))) {
+                empujarRival(posX, posY, posX+1, posY+1, 2, 1, imgnegro, imgblanco);
+                //Empujar 3 135°////////////////////////////////////////////////////////
+            } else if ((angulo135 == a135 &&  adyacencia135Negativo(posX, posY, presX, presY, 2)&&cantidadRivales135(posX, posY, 1) < 2)) {
+                empujarRival(posX, posY, posX-1, posY-1, 2, 1, imgnegro, imgblanco);
+                //Empujar 3 135°////////////////////////////////////////////////////////
+            } else if ((angulo135 == a135 && (adyacencia135Positivo(posX, posY, presX, presY, 3)&&cantidadRivales135(posX, posY, 1) < 3 ))) {
+                empujarRival(posX, posY, posX+2, posY+2, 2, 1, imgnegro, imgblanco);
+                //Empujar 3 135°////////////////////////////////////////////////////////
+            } else if ((angulo135 == a135 &&  adyacencia135Negativo(posX, posY, presX, presY, 3)&&cantidadRivales135(posX, posY, 1) < 3)) {
+                empujarRival(posX, posY, posX-2, posY-2, 2, 1, imgnegro, imgblanco);
+                //Empujar 3 135°////////////////////////////////////////////////////////
+            } else if (adyacenciaXPositivo(posX, posY, presX, presY, 2)&&cantidadRivalesX(posX, posY, 1) < 2 ) {
+                empujarRival(posX, posY, posX, posY+2, 2, 1, imgnegro, imgblanco);
+                //Empujar 3 135°////////////////////////////////////////////////////////
+            } else if ((adyacenciaXNegativo(posX, posY, presX, presY, 2)&&cantidadRivalesX(posX, posY, 1) < 2)) {
+                empujarRival(posX, posY, posX, posY-2, 2, 1, imgnegro, imgblanco);
+                //Empujar 3 135°////////////////////////////////////////////////////////
+            } else if (( (adyacenciaXPositivo(posX, posY, presX, presY, 3)&&cantidadRivalesX(posX, posY, 1) < 3 ))) {
+                empujarRival(posX, posY, posX, posY+4, 2, 1, imgnegro, imgblanco);
+                //Empujar 3 135°////////////////////////////////////////////////////////
+            } else if ((  adyacenciaXNegativo(posX, posY, presX, presY, 3)&&cantidadRivalesX(posX, posY, 1) < 3)) {
+                empujarRival(posX, posY, posX, posY-4, 2, 1, imgnegro, imgblanco);
+                //Empujar 3 135°////////////////////////////////////////////////////////
+            } 
+            presX = 0;
+            presY = 0;
+
+        }//
         else if (tablero[posX][posY] == 2) {
             campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negroPress.png")));
 
@@ -261,21 +295,100 @@ public class Tablero extends javax.swing.JFrame {
 
     }
 
-    public boolean adyacencia135(int nuevox, int nuevoy, int viejox, int viejoy, int n) {
-        return (nuevox - n == viejox && nuevoy - n == viejoy) || (nuevox + n == viejox && nuevoy + n == viejoy);
+    public boolean adyacencia135Positivo(int nuevox, int nuevoy, int viejox, int viejoy, int n) {
+        return (nuevox + n == viejox && nuevoy + n == viejoy);
 
     }
 
-    public boolean adyacencia45(int nuevox, int nuevoy, int viejox, int viejoy, int n) {
-        return (nuevox - n == viejox && nuevoy + n == viejoy) || (nuevox + n == viejox && nuevoy - n == viejoy);
+    public boolean adyacencia45Positivo(int nuevox, int nuevoy, int viejox, int viejoy, int n) {
+        return (nuevox - n == viejox && nuevoy + n == viejoy);
 
     }
 
-    public boolean adyacenciaX(int nuevox, int nuevoy, int viejox, int viejoy, int n) {
-        return (nuevox == viejox && nuevoy - n*2 == viejoy) || (nuevox == viejox && nuevoy + n*2 == viejoy);
+    public boolean adyacenciaXPositivo(int nuevox, int nuevoy, int viejox, int viejoy, int n) {
+        return (nuevox == viejox && nuevoy + n * 2 == viejoy);
 
     }
 
+    public boolean adyacencia135Negativo(int nuevox, int nuevoy, int viejox, int viejoy, int n) {
+        return (nuevox - n == viejox && nuevoy - n == viejoy);
+
+    }
+
+    public boolean adyacencia45Negativo(int nuevox, int nuevoy, int viejox, int viejoy, int n) {
+        return (nuevox + n == viejox && nuevoy - n == viejoy);
+
+    }
+
+    public boolean adyacenciaXNegativo(int nuevox, int nuevoy, int viejox, int viejoy, int n) {
+        return (nuevox == viejox && nuevoy - n * 2 == viejoy);
+
+    }
+
+    public int cantidadRivales45(int xrival, int yrival, int ficha) {
+        int cont = 1;
+
+        while (cont < 3) {
+            if (tablero[xrival - cont][yrival + cont] == ficha || tablero[xrival + cont][yrival - cont] == ficha) {
+                cont++;
+            } else {
+                break;
+            }
+
+        }
+
+        return cont;
+    }
+
+    public int cantidadRivales135(int xrival, int yrival, int ficha) {
+        int cont = 1;
+
+        while (cont < 3) {
+            if (tablero[xrival + cont][yrival + cont] == ficha || tablero[xrival - cont][yrival - cont] == ficha) {
+                cont++;
+            } else {
+                break;
+            }
+
+        }
+
+        return cont;
+    }
+
+    public int cantidadRivalesX(int xrival, int yrival, int ficha) {
+        int cont = 1;
+
+        while (cont < 3) {
+            if (tablero[xrival][yrival + cont * 2] == ficha || tablero[xrival][yrival - cont * 2] == ficha) {
+                cont++;
+            } else {
+                break;
+            }
+
+        }
+
+        return cont;
+    }
+
+    public void moverFicha(int posX, int posY, int ficha,ImageIcon img) {
+        tablero[posX][posY] = ficha;
+        campos[posX][posY].setIcon(img);
+        tablero[presX][presY] = 0;
+        campos[presX][presY].setIcon(imgvacio);
+
+    }
+    public void empujarRival(int posX, int posY, int empujaX,int empujaY, int ficha,int fichaenemiga,ImageIcon img,ImageIcon imgenemigo){
+        if (empujaX < 0 || empujaX > 16||empujaY < 0 || empujaY > 16) {
+                    fuerablanco++;
+                    moverFicha(posX, posY, ficha, img);
+                } else if (tablero[posX - 1][posY + 1] != 2&&tablero[posX - 1][posY + 1] > 2) {
+                    fuerablanco++;
+                    moverFicha(posX, posY, ficha, img);
+                }else if(tablero[posX - 1][posY + 1] == 0) {
+                    moverFicha(empujaX, empujaY, fichaenemiga, imgenemigo);
+                    moverFicha(posX, posY, ficha, img);
+                }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuCargar;
