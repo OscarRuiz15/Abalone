@@ -240,6 +240,9 @@ public class Tablero extends javax.swing.JFrame {
                 empujarRival(posX, posY, posX, posY, 2, 1, imgnegro, imgblanco);
             }*/
             
+            
+           
+
             //Empujar 2 fichas en 45° positivo ↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗
             if ((angulo45 == a45 && adyacencia45Positivo(posX, posY, presX, presY, 2) && cantidadRivales45(posX, posY, 1) < 2)) {
                 empujarRival(posX, posY, posX + 1, posY - 1, 2, 1, imgnegro, imgblanco);
@@ -248,10 +251,20 @@ public class Tablero extends javax.swing.JFrame {
                 empujarRival(posX, posY, posX - 1, posY + 1, 2, 1, imgnegro, imgblanco);
             }//Empujar 3 fichas en 45° negativo ↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗
             else if ((angulo45 == a45 && (adyacencia45Positivo(posX, posY, presX, presY, 3)) && cantidadRivales45(posX, posY, 1) < 3)) {
-                empujarRival(posX, posY, posX + 2, posY - 2, 2, 1, imgnegro, imgblanco);
+                if (cantidadRivales45(posX, posY, 1) == 2) {
+                    empujarRival(posX, posY, posX + 2, posY - 2, 2, 1, imgnegro, imgblanco);
+                } else {
+                    empujarRival(posX, posY, posX + 1, posY - 1, 2, 1, imgnegro, imgblanco);
+                }
+
             }//Empujar 3 fichas en 45° negativo ↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘
             else if ((angulo45 == a45 && (adyacencia45Negativo(posX, posY, presX, presY, 3)) && cantidadRivales45(posX, posY, 1) < 3)) {
-                empujarRival(posX, posY, posX - 2, posY + 2, 2, 1, imgnegro, imgblanco);
+                if (cantidadRivales45(posX, posY, 1) == 2) {
+                    empujarRival(posX, posY, posX - 2, posY + 2, 2, 1, imgnegro, imgblanco);
+                } else {
+                    empujarRival(posX, posY, posX - 1, posY + 1, 2, 1, imgnegro, imgblanco);
+                }
+
             }//Empujar 2 fichas en 135° positivo ↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗
             else if ((angulo135 == a135 && (adyacencia135Positivo(posX, posY, presX, presY, 2) && cantidadRivales135(posX, posY, 1) < 2))) {
                 empujarRival(posX, posY, posX - 1, posY - 1, 2, 1, imgnegro, imgblanco);
@@ -260,10 +273,20 @@ public class Tablero extends javax.swing.JFrame {
                 empujarRival(posX, posY, posX + 1, posY + 1, 2, 1, imgnegro, imgblanco);
             }//Empujar 3 fichas en 135° positivo ↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗
             else if ((angulo135 == a135 && (adyacencia135Positivo(posX, posY, presX, presY, 3) && cantidadRivales135(posX, posY, 1) < 3))) {
-                empujarRival(posX, posY, posX - 2, posY - 2, 2, 1, imgnegro, imgblanco);
+                if (cantidadRivales135(posX, posY, 1) == 2) {
+                    empujarRival(posX, posY, posX - 2, posY - 2, 2, 1, imgnegro, imgblanco);
+                } else {
+                    empujarRival(posX, posY, posX - 1, posY - 1, 2, 1, imgnegro, imgblanco);
+                }
+
             }//Empujar 3 fichas en 135° negativo ↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘
             else if ((angulo135 == a135 && adyacencia135Negativo(posX, posY, presX, presY, 3) && cantidadRivales135(posX, posY, 1) < 3)) {
-                empujarRival(posX, posY, posX + 2, posY + 2, 2, 1, imgnegro, imgblanco);
+                if (cantidadRivales135(posX, posY, 1) == 2) {
+                    empujarRival(posX, posY, posX + 2, posY + 2, 2, 1, imgnegro, imgblanco);
+                } else {
+                    empujarRival(posX, posY, posX + 1, posY + 1, 2, 1, imgnegro, imgblanco);
+                }
+
             }//Empujar 2 fichas horizonalmente positivo →→→→→→→→→→→→→→→→→→→→
             else if (adyacenciaXPositivo(posX, posY, presX, presY, 2) && cantidadRivalesX(posX, posY, 1) < 2) {
                 empujarRival(posX, posY, posX, posY - 2, 2, 1, imgnegro, imgblanco);
@@ -272,10 +295,20 @@ public class Tablero extends javax.swing.JFrame {
                 empujarRival(posX, posY, posX, posY + 2, 2, 1, imgnegro, imgblanco);
             }//Empujar 3 fichas horizonalmente positivo →→→→→→→→→→→→→→→→→→→→
             else if (((adyacenciaXPositivo(posX, posY, presX, presY, 3) && cantidadRivalesX(posX, posY, 1) < 3))) {
-                empujarRival(posX, posY, posX, posY - 4, 2, 1, imgnegro, imgblanco);
+                if (cantidadRivalesX(posX, posY, 1) == 2) {
+                    empujarRival(posX, posY, posX, posY - 4, 2, 1, imgnegro, imgblanco);
+                } else {
+                    empujarRival(posX, posY, posX, posY - 2, 2, 1, imgnegro, imgblanco);
+                }
+                
             }//Empujar 3 fichas horizonalmente negativo ←←←←←←←←←←←←←←←←←←←←
             else if ((adyacenciaXNegativo(posX, posY, presX, presY, 3) && cantidadRivalesX(posX, posY, 1) < 3)) {
-                empujarRival(posX, posY, posX, posY + 4, 2, 1, imgnegro, imgblanco);
+                if (cantidadRivalesX(posX, posY, 1) == 2) {
+                    empujarRival(posX, posY, posX, posY + 4, 2, 1, imgnegro, imgblanco);
+                } else {
+                    empujarRival(posX, posY, posX, posY + 2, 2, 1, imgnegro, imgblanco);
+                }
+                
             }
             presX = 0;
             presY = 0;
