@@ -25,6 +25,8 @@ public class Tablero extends javax.swing.JFrame {
     private final ImageIcon imgvacio = new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png"));
     boolean presiono = false;
     private Movimiento m;
+    private int jugadas=1;
+    private String posiciones[][];
 
     public Tablero() {
         initComponents();
@@ -129,6 +131,8 @@ public class Tablero extends javax.swing.JFrame {
             iniciarCampos();
             mostrarTablero();
         }
+        Posiciones p=new Posiciones(tablero);
+        posiciones=p.coordenadasPosiciones();
     }//GEN-LAST:event_menuCargarMouseClicked
     public void mostrarTablero() {
         for (int i = 0; i < tablero.length; i++) {
@@ -231,10 +235,12 @@ public class Tablero extends javax.swing.JFrame {
             else if ((m.adyacenciaXPositivo(posX, posY, presX, presY, 3) || m.adyacenciaXNegativo(posX, posY, presX, presY, 3))) {
                 m.moverFicha(posX, posY, presX, presY, 2, tablero);
             }
+            System.out.println(jugadas+"." +posiciones[presX][presY]+"-"+posiciones[posX][posY]);
             presX = 0;
             presY = 0;
             Minimmax mm=new Minimmax(tablero);
-            mm.generarArbol(1, 2);
+            jugadas++;
+            mm.generarArbol(1, 2,jugadas);
         }
 
         //Condicionales para empujar rivales en 45°, 135° u horizontal

@@ -27,6 +27,8 @@ public class Minimmax {
 
     private final int[] xborde = {1, 1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 9, 9, 9};
     private final int[] yborde = {5, 7, 9, 11, 13, 4, 14, 3, 15, 2, 16, 1, 17, 2, 16, 3, 15, 4, 14, 5, 7, 9, 11, 13};
+    private int heuristicaactual;
+    private int jugadas;
     List<Nodo> nodos = new ArrayList<>();
 
     public Minimmax(int[][] tablero) {
@@ -34,53 +36,67 @@ public class Minimmax {
 
     }
 
-    public void generarArbol(int ficha, int fichacontraria) {
+    public void generarArbol(int ficha, int fichacontraria, int cantidadjugadas) {
 
-        Nodo n = new Nodo(0, tablero, 0, 0, 0, 0, false, 0);
+        Nodo n = new Nodo(0, tablero, 0, 0, 0, 0,0, false, 0);
         nodos.add(n);
+        heuristicaactual = mejorHeuristica();
+        jugadas = cantidadjugadas;
         int contador = 0;
-        while (contador < 3) {
+        while (contador < 4) {
+            if (contador != 0) {
+                int mh = mejorHeuristica();
+                System.out.println("Mejor Heuristica: " + mh);
+                int aux = ficha;
+                ficha = fichacontraria;
+                fichacontraria = aux;
+            }
             int limite = nodos.size();
             for (int i = 0; i < limite; i++) {
-                for (int j = 0; j < tablero.length; j++) {
-                    for (int k = 0; k < tablero[0].length; k++) {
-                        if (tablero[j][k] == ficha) {
+                if (!nodos.get(i).isExpandido()) {
+                    nodos.get(i).setExpandido(true);
+                    int[][] tablero = nodos.get(i).getTablero();
+                    for (int j = 0; j < tablero.length; j++) {
+                        for (int k = 0; k < tablero[0].length; k++) {
+                            if (tablero[j][k] == ficha) {
 
-                            int movimientos[] = posiblesMovimientos(tablero, 1, ficha, fichacontraria, j, k, -1, 1);
+                                int movimientos[] = posiblesMovimientos(tablero, 1, ficha, fichacontraria, j, k, -1, 1);
 
-                            //Movimiento 45positivo
-                            if (movimientos[4] != 1) {
-                                crearMovimientos(tablero, ficha, fichacontraria, j, k, movimientos, i);
-                            }
+                                //Movimiento 45positivo
+                                if (movimientos[4] != 1) {
+                                    crearMovimientos(tablero, ficha, fichacontraria, j, k, movimientos, i);
+                                }
 
-                            //Movimiento 45negativo
-                            movimientos = posiblesMovimientos(tablero, 1, ficha, fichacontraria, j, k, 1, -1);
-                            if (movimientos[4] != 1) {
-                                crearMovimientos(tablero, ficha, fichacontraria, j, k, movimientos, i);
+                                //Movimiento 45negativo
+                                movimientos = posiblesMovimientos(tablero, 1, ficha, fichacontraria, j, k, 1, -1);
+                                if (movimientos[4] != 1) {
+                                    crearMovimientos(tablero, ficha, fichacontraria, j, k, movimientos, i);
 
-                            }
-                            //Movimiento 135positivo
-                            movimientos = posiblesMovimientos(tablero, 1, ficha, fichacontraria, j, k, 1, 1);
-                            if (movimientos[4] != 1) {
-                                crearMovimientos(tablero, ficha, fichacontraria, j, k, movimientos, i);
+                                }
+                                //Movimiento 135positivo
+                                movimientos = posiblesMovimientos(tablero, 1, ficha, fichacontraria, j, k, 1, 1);
+                                if (movimientos[4] != 1) {
+                                    crearMovimientos(tablero, ficha, fichacontraria, j, k, movimientos, i);
 
-                            }
-                            //Movimiento 135negativo
-                            movimientos = posiblesMovimientos(tablero, 1, ficha, fichacontraria, j, k, -1, -1);
-                            if (movimientos[4] != 1) {
-                                crearMovimientos(tablero, ficha, fichacontraria, j, k, movimientos, i);
+                                }
+                                //Movimiento 135negativo
+                                movimientos = posiblesMovimientos(tablero, 1, ficha, fichacontraria, j, k, -1, -1);
+                                if (movimientos[4] != 1) {
+                                    crearMovimientos(tablero, ficha, fichacontraria, j, k, movimientos, i);
 
-                            }
-                            //Movimiento Xpositivo
-                            movimientos = posiblesMovimientos(tablero, 1, ficha, fichacontraria, j, k, 0, 2);
-                            if (movimientos[4] != 1) {
-                                crearMovimientos(tablero, ficha, fichacontraria, j, k, movimientos, i);
+                                }
+                                //Movimiento Xpositivo
+                                movimientos = posiblesMovimientos(tablero, 1, ficha, fichacontraria, j, k, 0, 2);
+                                if (movimientos[4] != 1) {
+                                    crearMovimientos(tablero, ficha, fichacontraria, j, k, movimientos, i);
 
-                            }
-                            //Movimiento Xnegativo
-                            movimientos = posiblesMovimientos(tablero, 1, ficha, fichacontraria, j, k, 0, -2);
-                            if (movimientos[4] != 1) {
-                                crearMovimientos(tablero, ficha, fichacontraria, j, k, movimientos, i);
+                                }
+                                //Movimiento Xnegativo
+                                movimientos = posiblesMovimientos(tablero, 1, ficha, fichacontraria, j, k, 0, -2);
+                                if (movimientos[4] != 1) {
+                                    crearMovimientos(tablero, ficha, fichacontraria, j, k, movimientos, i);
+
+                                }
 
                             }
 
@@ -89,7 +105,6 @@ public class Minimmax {
                     }
 
                 }
-
             }
             contador++;
         }
@@ -171,22 +186,27 @@ public class Minimmax {
         return cantidad;
     }
 
-    /*private int heuristica3EnLinea(int[][] tablero, int ficha,int contador){
-        int cantidad=0;
-        if (contador==3) {
-            cantidad++;
-        }else{
-            for (int i = 0; i < tablero.length; i++) {
-                for (int j = 0; j < tablero[0].length; j++) {
-                    
-                    
+    private int heuristica3EnLinea(int[][] tablero, int ficha) {
+        int cantidad = 0;
+        for (int i = 0; i < tablero.length; i++) {
+            for (int j = 0; j < tablero[0].length; j++) {
+                if (tablero[i][j] == ficha) {
+                    if (contarFichas(tablero, i, j, ficha, -1, 1, 0)) {
+                        cantidad++;
+                    }
+                    if (contarFichas(tablero, i, j, ficha, 1, 1, 0)) {
+                        cantidad++;
+                    }
+                    if (contarFichas(tablero, i, j, ficha, 0, 2, 0)) {
+                        cantidad++;
+                    }
                 }
-                
             }
+
         }
-        
         return cantidad;
-    }*/
+    }
+
     private void crearMovimientos(int[][] tablero, int ficha, int fichacontraria, int j, int k, int[] movimientos, int idpadre) {
         if (movimientos[4] != 1) {
             int tab[][] = tablero.clone();
@@ -204,14 +224,29 @@ public class Minimmax {
                 tab[movimientos[2]][movimientos[3]] = ficha;
             }
             int hcentro = (heuristicaCentro(tab, ficha) - heuristicaCentro(tab, fichacontraria)) * 2;
-            int hborde = heuristicaBorde(tab, ficha) - heuristicaBorde(tab, fichacontraria);
+            int hborde = heuristicaBorde(tab, fichacontraria) - heuristicaBorde(tab, ficha);
             int diferencia = diferenciaFichas(tab, ficha, fichacontraria);
-
-            int heuristica = hcentro + hborde + diferencia;
+            int tresenlinea=heuristica3EnLinea(tab, ficha)-heuristica3EnLinea(tab, fichacontraria);
+            int heuristica = hcentro + hborde + diferencia+tresenlinea;
             verTablero(tab);
-            Nodo n = new Nodo(nodos.size(), tab, hcentro, hborde, heuristica, diferencia, false, idpadre);
-            nodos.add(n);
-
+            System.out.println("Centro: " + hcentro);
+            System.out.println("Borde: " + hborde);
+            System.out.println("Diferencia: " + diferencia);
+            System.out.println("Cantidad de lineas de 3: " + tresenlinea);
+            System.out.println("Heuristica: " + heuristica);
+            if (jugadas < 10) {
+                if (heuristica > heuristicaactual - 1) {
+                    Nodo n = new Nodo(nodos.size(), tab, hcentro, hborde, heuristica, diferencia,tresenlinea, false, idpadre);
+                    nodos.add(n);
+                } else {
+                    System.out.println("Mala jugada, no guardo");
+                }
+            } else if (heuristica > heuristicaactual - 3) {
+                Nodo n = new Nodo(nodos.size(), tab, hcentro, hborde, heuristica, diferencia,tresenlinea, false, idpadre);
+                nodos.add(n);
+            } else {
+                System.out.println("Mala jugada, no guardo");
+            }
         }
     }
 
@@ -229,6 +264,32 @@ public class Minimmax {
 
         }
         System.out.println("");
+    }
+
+    public int mejorHeuristica() {
+        int n = -20;
+        for (int i = 0; i < nodos.size(); i++) {
+            int valor = nodos.get(i).getHeuristicatotal();
+            if (valor > n) {
+                n = valor;
+            }
+
+        }
+        return n;
+    }
+
+    private boolean contarFichas(int[][] tablero, int i, int j, int ficha, int n1, int n2, int contador) {
+        int n=contador;
+        boolean v;
+        if (n == 3) {
+            v = true;
+        } else if (i>0&&j>0&&i<17&&j<17&&tablero[i][j] == ficha) {
+            n++;
+            v = contarFichas(tablero, i + n1, j + n2, ficha, n1, n2, n);
+        }else{
+            v=false;
+        }
+        return v;
     }
 
 }
