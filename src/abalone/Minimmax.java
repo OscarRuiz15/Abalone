@@ -29,6 +29,7 @@ public class Minimmax {
     private final int[] yborde = {5, 7, 9, 11, 13, 4, 14, 3, 15, 2, 16, 1, 17, 2, 16, 3, 15, 4, 14, 5, 7, 9, 11, 13};
     private int heuristicaactual;
     private int jugadas;
+    private int contador = 0;
     List<Nodo> nodos = new ArrayList<>();
 
     public Minimmax(int[][] tablero) {
@@ -38,11 +39,11 @@ public class Minimmax {
 
     public void generarArbol(int ficha, int fichacontraria, int cantidadjugadas) {
 
-        Nodo n = new Nodo(0, tablero, 0, 0, 0, 0,0, false, 0);
+        Nodo n = new Nodo(0, tablero, 0, 0, 0, 0, 0, false, 0, 0);
         nodos.add(n);
         heuristicaactual = mejorHeuristica();
         jugadas = cantidadjugadas;
-        int contador = 0;
+
         while (contador < 4) {
             if (contador != 0) {
                 int mh = mejorHeuristica();
@@ -51,6 +52,7 @@ public class Minimmax {
                 ficha = fichacontraria;
                 fichacontraria = aux;
             }
+            contador++;
             int limite = nodos.size();
             for (int i = 0; i < limite; i++) {
                 if (!nodos.get(i).isExpandido()) {
@@ -106,7 +108,7 @@ public class Minimmax {
 
                 }
             }
-            contador++;
+
         }
     }
 
@@ -226,8 +228,8 @@ public class Minimmax {
             int hcentro = (heuristicaCentro(tab, ficha) - heuristicaCentro(tab, fichacontraria)) * 2;
             int hborde = heuristicaBorde(tab, fichacontraria) - heuristicaBorde(tab, ficha);
             int diferencia = diferenciaFichas(tab, ficha, fichacontraria);
-            int tresenlinea=heuristica3EnLinea(tab, ficha)-heuristica3EnLinea(tab, fichacontraria);
-            int heuristica = hcentro + hborde + diferencia+tresenlinea;
+            int tresenlinea = heuristica3EnLinea(tab, ficha) - heuristica3EnLinea(tab, fichacontraria);
+            int heuristica = hcentro + hborde + diferencia + tresenlinea;
             verTablero(tab);
             System.out.println("Centro: " + hcentro);
             System.out.println("Borde: " + hborde);
@@ -236,13 +238,13 @@ public class Minimmax {
             System.out.println("Heuristica: " + heuristica);
             if (jugadas < 10) {
                 if (heuristica > heuristicaactual - 1) {
-                    Nodo n = new Nodo(nodos.size(), tab, hcentro, hborde, heuristica, diferencia,tresenlinea, false, idpadre);
+                    Nodo n = new Nodo(nodos.size(), tab, hcentro, hborde, heuristica, diferencia, tresenlinea, false, contador, idpadre);
                     nodos.add(n);
                 } else {
                     System.out.println("Mala jugada, no guardo");
                 }
             } else if (heuristica > heuristicaactual - 3) {
-                Nodo n = new Nodo(nodos.size(), tab, hcentro, hborde, heuristica, diferencia,tresenlinea, false, idpadre);
+                Nodo n = new Nodo(nodos.size(), tab, hcentro, hborde, heuristica, diferencia, tresenlinea, false, contador, idpadre);
                 nodos.add(n);
             } else {
                 System.out.println("Mala jugada, no guardo");
@@ -279,15 +281,15 @@ public class Minimmax {
     }
 
     private boolean contarFichas(int[][] tablero, int i, int j, int ficha, int n1, int n2, int contador) {
-        int n=contador;
+        int n = contador;
         boolean v;
         if (n == 3) {
             v = true;
-        } else if (i>0&&j>0&&i<17&&j<17&&tablero[i][j] == ficha) {
+        } else if (i > 0 && j > 0 && i < 17 && j < 17 && tablero[i][j] == ficha) {
             n++;
             v = contarFichas(tablero, i + n1, j + n2, ficha, n1, n2, n);
-        }else{
-            v=false;
+        } else {
+            v = false;
         }
         return v;
     }

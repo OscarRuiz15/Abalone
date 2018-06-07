@@ -9,11 +9,12 @@ public class Nodo {
     int diferenciafichas;
     int tresenlinea;
     private boolean expandido;
+    private int profundidad;
     private int idpadre;
 
     
 
-    public Nodo(int id, int[][] tablero, int heuristicacentro, int heuristicaborde, int heuristicatotal,int diferenciafichas,int tresenlinea, boolean expandido, int idpadre) {
+    public Nodo(int id, int[][] tablero, int heuristicacentro, int heuristicaborde, int heuristicatotal,int diferenciafichas,int tresenlinea, boolean expandido,int profundidad, int idpadre) {
         this.id = id;
         this.tablero = tablero;
         this.heuristicacentro = heuristicacentro;
@@ -22,9 +23,19 @@ public class Nodo {
         this.diferenciafichas=diferenciafichas;
         this.tresenlinea=tresenlinea;
         this.expandido = expandido;
+        this.profundidad=profundidad;
         this.idpadre = idpadre;
     
     }
+
+    public int getProfundidad() {
+        return profundidad;
+    }
+
+    public void setProfundidad(int profundidad) {
+        this.profundidad = profundidad;
+    }
+    
 
     public int getTresenlinea() {
         return tresenlinea;
