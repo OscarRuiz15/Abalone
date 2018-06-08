@@ -30,6 +30,7 @@ public class Minimmax {
     private int heuristicaactual;
     private int jugadas;
     private int contador = 0;
+    private int profundidad = 0;
     List<Nodo> nodos = new ArrayList<>();
 
     public Minimmax(int[][] tablero) {
@@ -47,7 +48,7 @@ public class Minimmax {
         while (contador < 4) {
             if (contador != 0) {
                 int mh = mejorHeuristica();
-                System.out.println("Mejor Heuristica: " + mh);
+//                System.out.println("Mejor Heuristica: " + mh);
                 int aux = ficha;
                 ficha = fichacontraria;
                 fichacontraria = aux;
@@ -230,24 +231,29 @@ public class Minimmax {
             int diferencia = diferenciaFichas(tab, ficha, fichacontraria);
             int tresenlinea = heuristica3EnLinea(tab, ficha) - heuristica3EnLinea(tab, fichacontraria);
             int heuristica = hcentro + hborde + diferencia + tresenlinea;
-            verTablero(tab);
-            System.out.println("Centro: " + hcentro);
-            System.out.println("Borde: " + hborde);
-            System.out.println("Diferencia: " + diferencia);
-            System.out.println("Cantidad de lineas de 3: " + tresenlinea);
-            System.out.println("Heuristica: " + heuristica);
+//            verTablero(tab);
+//            System.out.println("Centro: " + hcentro);
+//            System.out.println("Borde: " + hborde);
+//            System.out.println("Diferencia: " + diferencia);
+//            System.out.println("Cantidad de lineas de 3: " + tresenlinea);
+//            System.out.println("Heuristica: " + heuristica);
             if (jugadas < 10) {
                 if (heuristica > heuristicaactual - 1) {
                     Nodo n = new Nodo(nodos.size(), tab, hcentro, hborde, heuristica, diferencia, tresenlinea, false, contador, idpadre);
                     nodos.add(n);
                 } else {
-                    System.out.println("Mala jugada, no guardo");
+//                    System.out.println("Mala jugada, no guardo");
                 }
             } else if (heuristica > heuristicaactual - 3) {
                 Nodo n = new Nodo(nodos.size(), tab, hcentro, hborde, heuristica, diferencia, tresenlinea, false, contador, idpadre);
                 nodos.add(n);
             } else {
-                System.out.println("Mala jugada, no guardo");
+//                System.out.println("Mala jugada, no guardo");
+            }
+//            System.out.println("Padre "+idpadre);
+//            System.out.println("Profundidad "+contador);
+            if (profundidad < contador) {
+                profundidad = contador;
             }
         }
     }
@@ -292,6 +298,70 @@ public class Minimmax {
             v = false;
         }
         return v;
+    }
+
+    public void imprimirTablero() {
+
+        for (int i = 0; i < profundidad; i++) {
+            for (int j = 0; j < nodos.size(); j++) {
+                if (nodos.get(j).getProfundidad() == i && nodos.get(j).isExpandido()) {
+                    if (i % 2 == 0) {
+                        nodos.get(j).setHeuristicatotal(-1000);
+                    } else {
+                        nodos.get(j).setHeuristicatotal(1000);
+                    }
+
+                }
+
+            }
+        }
+        for (int i = profundidad; i >= 0; i--) {
+
+            for (int j = 0; j < nodos.size(); j++) {
+                if (nodos.get(j).getProfundidad() == i) {
+
+                    if (i % 2 == 0) {
+                        if (nodos.get(j).getHeuristicatotal() < nodos.get(nodos.get(j).getIdpadre()).getHeuristicatotal()) {
+                            nodos.get(nodos.get(j).getIdpadre()).setHeuristicatotal(nodos.get(j).getHeuristicaborde());
+                        }
+                    } else {
+                        if (nodos.get(j).getHeuristicatotal() > nodos.get(nodos.get(j).getIdpadre()).getHeuristicatotal()) {
+                            nodos.get(nodos.get(j).getIdpadre()).setHeuristicatotal(nodos.get(j).getHeuristicaborde());
+                        }
+                    }
+
+                    System.out.print(nodos.get(j).getId() + " ; " + nodos.get(j).getHeuristicatotal() + " ; " + nodos.get(j).getIdpadre() + " || ");
+                }
+            }
+            System.out.println("\n");
+
+        }
+        System.out.println("ruta rapida: \n Nodo" + nodos.get(0).getId());
+        verTablero(nodos.get(0).getTablero());
+        System.out.println("Centro: " + nodos.get(0).getHeuristicacentro());
+        System.out.println("Borde: " + nodos.get(0).getHeuristicaborde());
+        System.out.println("Diferencia: " + nodos.get(0).getDiferenciafichas());
+        System.out.println("Cantidad de lineas de 3: " + nodos.get(0).getDiferenciafichas());
+        System.out.println("Heuristica: " + nodos.get(0).getHeuristicatotal());
+        int papa = 0;
+        for (int i = 0; i < profundidad; i++) {
+
+            for (int j = 0; j < nodos.size(); j++) {
+                if (nodos.get(j).getProfundidad() == (i + 1) && nodos.get(j).getIdpadre() == nodos.get(papa).getId() && nodos.get(j).getHeuristicatotal() == nodos.get(papa).getHeuristicatotal()) {
+                    papa = nodos.get(j).getId();
+                    System.out.println("Nodo:" + nodos.get(j).getId());
+                    verTablero(nodos.get(j).getTablero());
+                    System.out.println("Centro: " + nodos.get(j).getHeuristicacentro());
+                    System.out.println("Borde: " + nodos.get(j).getHeuristicaborde());
+                    System.out.println("Diferencia: " + nodos.get(j).getDiferenciafichas());
+                    System.out.println("Cantidad de lineas de 3: " + nodos.get(j).getDiferenciafichas());
+                    System.out.println("Heuristica: " + nodos.get(j).getHeuristicatotal());
+                    //    System.out.println(papa);
+                    break;
+                }
+
+            }
+        }
     }
 
 }

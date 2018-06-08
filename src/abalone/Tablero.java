@@ -241,6 +241,9 @@ public class Tablero extends javax.swing.JFrame {
             Minimmax mm=new Minimmax(tablero);
             jugadas++;
             mm.generarArbol(1, 2,jugadas);
+            
+            mm.imprimirTablero();
+            
         }
 
         //Condicionales para empujar rivales en 45°, 135° u horizontal
