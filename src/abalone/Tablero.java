@@ -263,14 +263,14 @@ public class Tablero extends javax.swing.JFrame {
                         tablero[posX][posY] = ficha;
 //
                         tablero[presX][presY] = 0;
-                        mm.generarArbol(ficha, fichacontraria, jugadas);
+                        tablero=mm.generarArbol(fichacontraria, ficha, jugadas);
                         
                     }else if (m[0] == posX && m[1] == posY && m[2]!=0 && m[3]!=0) {
                         tablero[posX][posY] = ficha;
                         tablero[m[2]][m[3]] = fichacontraria;
 
                         tablero[presX][presY] = 0;
-                        mm.generarArbol(ficha, fichacontraria, jugadas);
+                        tablero=mm.generarArbol(fichacontraria, ficha, jugadas);
                     }
 
                 }
