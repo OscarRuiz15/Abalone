@@ -38,14 +38,14 @@ public class Minimmax {
 
     }
 
-    public void generarArbol(int ficha, int fichacontraria, int cantidadjugadas) {
+    public int[][] generarArbol(int ficha, int fichacontraria, int cantidadjugadas) {
 
         Nodo n = new Nodo(0, tablero, 0, 0, 0, 0, 0, false, 0, 0);
         nodos.add(n);
         heuristicaactual = mejorHeuristica();
         jugadas = cantidadjugadas;
 
-        while (contador < 4) {
+        while (contador < 3) {
             if (contador != 0) {
                 int mh = mejorHeuristica();
 //                System.out.println("Mejor Heuristica: " + mh);
@@ -111,13 +111,18 @@ public class Minimmax {
             }
 
         }
+        int[][] t = imprimirTablero();
+        return t;
     }
 
     //Recibe el tablero, un contador para saber cuantas empuja, el id de la ficha, la contraria, la posicion x, y
     //n1 y n2 es para saber si es angulo 45, 135 u horizontalmente
     public int[] posiblesMovimientos(int tablero[][], int contador, int ficha, int fichacontraria, int x, int y, int n1, int n2) {
+        
         int[] v = new int[5];
-        if (contador > 3) {
+        if (x > 10 || y > 17 || x < 0 || y < 0) {
+            v[4] = 1;
+        } else if (contador > 3) {
             v[4] = 1;
         } else if (tablero[x][y] == 0) {
             v[0] = x;
@@ -125,18 +130,24 @@ public class Minimmax {
         } else if (tablero[x][y] == ficha) {
             v = posiblesMovimientos(tablero, contador++, ficha, fichacontraria, x + n1, y + n2, n1, n2);
         } else if (tablero[x][y] == fichacontraria) {
-            v = posibleEmpuje(tablero, contador, ficha, fichacontraria, x + n1, y + n2, n1, n2, 0, v);
+            int validacion = posibleEmpuje(tablero, contador, ficha, fichacontraria, x + n1, y + n2, n1, n2, 1, v)[4];
+            if (validacion!=1) {
+                v[0] = x;
+                v[1] = y;
+            }
+
         } else {
             v[4] = 1;
         }
-
         return v;
 
     }
 
     private int[] posibleEmpuje(int[][] tablero, int contador, int ficha, int fichacontraria, int x, int y, int n1, int n2, int contadorcontrarias, int v[]) {
-
-        if (contadorcontrarias == 3) {
+        
+        if (x > 10 || y > 17 || x < 0 || y < 0) {
+            v[4] = 1;
+        } else if (contadorcontrarias == 3) {
             v[4] = 1;
         } else if (tablero[x][y] == fichacontraria) {
             v = posibleEmpuje(tablero, contador, ficha, fichacontraria, x + n1, y + n2, n1, n2, contadorcontrarias++, v);
@@ -291,7 +302,7 @@ public class Minimmax {
         boolean v;
         if (n == 3) {
             v = true;
-        } else if (i > 0 && j > 0 && i < 17 && j < 17 && tablero[i][j] == ficha) {
+        } else if (i > 0 && j > 0 && i < 11 && j < 17 && tablero[i][j] == ficha) {
             n++;
             v = contarFichas(tablero, i + n1, j + n2, ficha, n1, n2, n);
         } else {
@@ -300,7 +311,7 @@ public class Minimmax {
         return v;
     }
 
-    public void imprimirTablero() {
+    public int[][] imprimirTablero() {
 
         for (int i = 0; i < profundidad; i++) {
             for (int j = 0; j < nodos.size(); j++) {
@@ -322,12 +333,10 @@ public class Minimmax {
 
                     if (i % 2 == 0) {
                         if (nodos.get(j).getHeuristicatotal() < nodos.get(nodos.get(j).getIdpadre()).getHeuristicatotal()) {
-                            nodos.get(nodos.get(j).getIdpadre()).setHeuristicatotal(nodos.get(j).getHeuristicaborde());
+                            nodos.get(nodos.get(j).getIdpadre()).setHeuristicatotal(nodos.get(j).getHeuristicatotal());
                         }
-                    } else {
-                        if (nodos.get(j).getHeuristicatotal() > nodos.get(nodos.get(j).getIdpadre()).getHeuristicatotal()) {
-                            nodos.get(nodos.get(j).getIdpadre()).setHeuristicatotal(nodos.get(j).getHeuristicaborde());
-                        }
+                    } else if (nodos.get(j).getHeuristicatotal() > nodos.get(nodos.get(j).getIdpadre()).getHeuristicatotal()) {
+                        nodos.get(nodos.get(j).getIdpadre()).setHeuristicatotal(nodos.get(j).getHeuristicatotal());
                     }
 
                     System.out.print(nodos.get(j).getId() + " ; " + nodos.get(j).getHeuristicatotal() + " ; " + nodos.get(j).getIdpadre() + " || ");
@@ -336,6 +345,7 @@ public class Minimmax {
             System.out.println("\n");
 
         }
+        int[][] t = new int[19][11];
         System.out.println("ruta rapida: \n Nodo" + nodos.get(0).getId());
         verTablero(nodos.get(0).getTablero());
         System.out.println("Centro: " + nodos.get(0).getHeuristicacentro());
@@ -349,6 +359,11 @@ public class Minimmax {
             for (int j = 0; j < nodos.size(); j++) {
                 if (nodos.get(j).getProfundidad() == (i + 1) && nodos.get(j).getIdpadre() == nodos.get(papa).getId() && nodos.get(j).getHeuristicatotal() == nodos.get(papa).getHeuristicatotal()) {
                     papa = nodos.get(j).getId();
+                    if (nodos.get(j).getProfundidad() == 1) {
+                        System.out.println("Esta es la jugada");
+                        verTablero(nodos.get(j).getTablero());
+                        t = nodos.get(j).getTablero();
+                    }
                     System.out.println("Nodo:" + nodos.get(j).getId());
                     verTablero(nodos.get(j).getTablero());
                     System.out.println("Centro: " + nodos.get(j).getHeuristicacentro());
@@ -361,7 +376,9 @@ public class Minimmax {
                 }
 
             }
+
         }
+        return t;
     }
 
 }

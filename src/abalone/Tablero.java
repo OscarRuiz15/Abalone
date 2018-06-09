@@ -240,9 +240,9 @@ public class Tablero extends javax.swing.JFrame {
             presY = 0;
             Minimmax mm=new Minimmax(tablero);
             jugadas++;
-            mm.generarArbol(1, 2,jugadas);
+            tablero=mm.generarArbol(1, 2,jugadas);
             
-            mm.imprimirTablero();
+            //mm.imprimirTablero();
             
         }
 
