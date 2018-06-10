@@ -2,7 +2,7 @@ package abalone;
 
 public class Posiciones {
 
-    private String[][] posiciones;
+    String[][] posiciones;
     private int[][] tablero;
 
     public Posiciones(int[][] tablero) {
@@ -13,8 +13,8 @@ public class Posiciones {
     }
 
     public String[][] coordenadasPosiciones() {
-        
-        for (int i = 0; i < tablero.length; i++) {
+
+        for (int i = 0; i < tablero[0].length; i++) {
             String cadena = "";
             switch (i) {
                 case 1:
@@ -71,13 +71,13 @@ public class Posiciones {
                 default:
                     break;
             }
-            for (int j = 0; j < tablero[0].length; j++) {
-                if (tablero[i][j] < 3) {
-                    String aux=cadena;
-                    cadena+=j;
-                    posiciones[i][j]=cadena;
-                    System.out.println(cadena);
-                    cadena=aux;
+            for (int j = 0; j < tablero.length; j++) {
+                if (tablero[j][i] < 3) {
+                    String aux = cadena;
+                    cadena += j;
+                    posiciones[j][i] = cadena;
+                    System.out.print(cadena + " ");
+                    cadena = aux;
                 }
 
             }
