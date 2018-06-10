@@ -31,6 +31,7 @@ public class Tablero extends javax.swing.JFrame {
     private String posiciones[][];
     private final int ficha = 2;
     private final int fichacontraria = 1;
+    String historial;
 
     public Tablero() {
         initComponents();
@@ -65,6 +66,8 @@ public class Tablero extends javax.swing.JFrame {
     private void initComponents() {
 
         panelCampos = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tajugadas = new javax.swing.JTextArea();
         menuBar = new javax.swing.JMenuBar();
         menuCargar = new javax.swing.JMenu();
 
@@ -85,6 +88,11 @@ public class Tablero extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        tajugadas.setEditable(false);
+        tajugadas.setColumns(20);
+        tajugadas.setRows(5);
+        jScrollPane1.setViewportView(tajugadas);
+
         menuCargar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/upload.png"))); // NOI18N
         menuCargar.setText("Cargar Archivo");
         menuCargar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -103,13 +111,17 @@ public class Tablero extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panelCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -255,7 +267,7 @@ public class Tablero extends javax.swing.JFrame {
             if (moves.isEmpty()) {
                 campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
             } else {
-                Minimmax mm=new Minimmax(tablero);
+                Minimmax mm=new Minimmax(tablero,posiciones);
                 for (int i = 0; i < moves.size(); i++) {
 
                     Integer[] m = moves.get(i);
@@ -263,17 +275,26 @@ public class Tablero extends javax.swing.JFrame {
                         tablero[posX][posY] = ficha;
 //
                         tablero[presX][presY] = 0;
+                        String jug=posiciones[presX][presY]+"-"+posiciones[posX][posY];
                         tablero=mm.generarArbol(fichacontraria, ficha, jugadas);
+                        historial+=jug+"\t"+mm.jugada+"\n";
+                        System.out.println(historial);
+                        tajugadas.setText(historial);
                         
                     }else if (m[0] == posX && m[1] == posY && m[2]!=0 && m[3]!=0) {
                         tablero[posX][posY] = ficha;
                         tablero[m[2]][m[3]] = fichacontraria;
 
                         tablero[presX][presY] = 0;
+                        String jug=posiciones[presX][presY]+"-"+posiciones[posX][posY];
                         tablero=mm.generarArbol(fichacontraria, ficha, jugadas);
+                        historial+=" "+"\t"+jug+"\t"+mm.jugada+"\n";
+                        System.out.println(historial);
+                        tajugadas.setText(historial);
                     }
 
                 }
+                
             }
             //presiono = true;
         }
@@ -426,8 +447,10 @@ public class Tablero extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuCargar;
     private javax.swing.JPanel panelCampos;
+    private javax.swing.JTextArea tajugadas;
     // End of variables declaration//GEN-END:variables
 }

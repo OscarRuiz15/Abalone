@@ -33,15 +33,17 @@ public class Minimmax {
     private int profundidad = 0;
     private final Movimiento mv = new Movimiento();
     List<Nodo> nodos = new ArrayList<>();
+    String jugada;
+    private String posiciones[][];
 
-    public Minimmax(int[][] tablero) {
+    public Minimmax(int[][] tablero, String posiciones[][]) {
         this.tablero = tablero;
-
+        this.posiciones = posiciones;
     }
 
     public int[][] generarArbol(int ficha, int fichacontraria, int cantidadjugadas) {
 
-        Nodo n = new Nodo(0, tablero, 0, 0, 0, 0, 0, false, 0, 0);
+        Nodo n = new Nodo(0, tablero, 0, 0, 0, 0, 0, false, 0, "", 0);
         nodos.add(n);
         heuristicaactual = mejorHeuristica();
         jugadas = cantidadjugadas;
@@ -59,7 +61,7 @@ public class Minimmax {
             for (int i = 0; i < limite; i++) {
                 if (!nodos.get(i).isExpandido()) {
                     nodos.get(i).setExpandido(true);
-                    if (i==19) {
+                    if (i == 19) {
                         System.out.println("");
                     }
                     int[][] tablero = nodos.get(i).getTablero();
@@ -124,7 +126,7 @@ public class Minimmax {
     public int[] posiblesMovimientos(int tablero[][], int contador, int ficha, int fichacontraria, int x, int y, int n1, int n2) {
 
         int[] v = new int[5];
-        if (x > 10 || y > 17 || x < 0 || y < 0) {
+        if (x > 10 || y > 18 || x < 0 || y < 0) {
             v[4] = 1;
         } else if (contador > 3) {
             v[4] = 1;
@@ -149,7 +151,7 @@ public class Minimmax {
 
     private int[] posibleEmpuje(int[][] tablero, int contador, int ficha, int fichacontraria, int x, int y, int n1, int n2, int contadorcontrarias, int v[]) {
 
-        if ((x >= 10 || y >= 17 || x <= 0 || y <= 0) && contador > contadorcontrarias) {
+        if ((x >= 10 || y >= 18 || x <= 0 || y <= 0) && contador > contadorcontrarias) {
             v[2] = 0;
             v[3] = 0;
 
@@ -268,9 +270,10 @@ public class Minimmax {
 //            System.out.println("Heuristica: " + heuristica);
 
 //            if (heuristica > - 1) {
-                heuristica *= mult;
-                Nodo n = new Nodo(nodos.size(), tab, hcentro, hborde, heuristica, diferencia, tresenlinea, false, contador, idpadre);
-                nodos.add(n);
+            heuristica *= mult;
+            String jug=posiciones[j][k]+"-"+posiciones[movimientos[0]][movimientos[1]];
+            Nodo n = new Nodo(nodos.size(), tab, hcentro, hborde, heuristica, diferencia, tresenlinea, false, contador,jug, idpadre);
+            nodos.add(n);
 //            } else {
 //                    System.out.println("Mala jugada, no guardo");
 //            }
@@ -414,7 +417,7 @@ public class Minimmax {
         for (int i = profundidad; i >= 0; i--) {
             for (int j = 0; j < nodos.size(); j++) {
                 if (nodos.get(j).getProfundidad() == i) {
-                    if (i==1) {
+                    if (i == 1) {
                         System.out.println("");
                     }
                     if (i % 2 == 0) {
@@ -444,10 +447,11 @@ public class Minimmax {
             for (int j = 0; j < nodos.size(); j++) {
                 if (nodos.get(j).getProfundidad() == (i + 1) && nodos.get(j).getIdpadre() == nodos.get(papa).getId() && nodos.get(j).getHeuristicatotal() == nodos.get(papa).getHeuristicatotal()) {
                     papa = nodos.get(j).getId();
-                     if (nodos.get(j).getProfundidad() == 1) {
+                    if (nodos.get(j).getProfundidad() == 1) {
                         System.out.println("Esta es la jugada");
                         verTablero(nodos.get(j).getTablero());
                         t = nodos.get(j).getTablero();
+                        jugada=nodos.get(j).getJugada();
                     }
                     System.out.println("Nodo:" + nodos.get(j).getId());
                     verTablero(nodos.get(j).getTablero());

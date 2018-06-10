@@ -10,11 +10,12 @@ public class Nodo {
     int tresenlinea;
     private boolean expandido;
     private int profundidad;
+    private String jugada;
     private int idpadre;
 
     
 
-    public Nodo(int id, int[][] tablero, int heuristicacentro, int heuristicaborde, int heuristicatotal,int diferenciafichas,int tresenlinea, boolean expandido,int profundidad, int idpadre) {
+    public Nodo(int id, int[][] tablero, int heuristicacentro, int heuristicaborde, int heuristicatotal,int diferenciafichas,int tresenlinea, boolean expandido,int profundidad,String jugada, int idpadre) {
         this.id = id;
         this.tablero = tablero;
         this.heuristicacentro = heuristicacentro;
@@ -24,9 +25,19 @@ public class Nodo {
         this.tresenlinea=tresenlinea;
         this.expandido = expandido;
         this.profundidad=profundidad;
+        this.jugada=jugada;
         this.idpadre = idpadre;
     
     }
+
+    public String getJugada() {
+        return jugada;
+    }
+
+    public void setJugada(String jugada) {
+        this.jugada = jugada;
+    }
+    
 
     public int getProfundidad() {
         return profundidad;

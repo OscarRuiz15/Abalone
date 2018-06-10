@@ -11,7 +11,7 @@ public class Movimiento {
     public Integer[] posiblesMovimientos(int tablero[][], int contador, int ficha, int fichacontraria, int x, int y, int n1, int n2) {
         int c = contador;
         Integer[] v = new Integer[5];
-        if (x > 10 || y > 17 || x < 0 || y < 0) {
+        if (x > 10 || y > 18 || x < 0 || y < 0) {
             v[4] = 1;
         } else if (contador > 3) {
             v[4] = 1;
@@ -41,7 +41,7 @@ public class Movimiento {
 
     private Integer[] posibleEmpuje(int[][] tablero, int contador, int ficha, int fichacontraria, int x, int y, int n1, int n2, int contadorcontrarias, Integer v[]) {
 
-        if ((x >= 10 || y >= 17 || x <= 0 || y <= 0) && contador > contadorcontrarias) {
+        if ((x >= 10 || y >= 18 || x <= 0 || y <= 0) && contador > contadorcontrarias) {
             v[2] = 0;
             v[3] = 0;
 
