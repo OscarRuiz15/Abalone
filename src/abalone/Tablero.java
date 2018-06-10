@@ -26,12 +26,12 @@ public class Tablero extends javax.swing.JFrame {
     private final ImageIcon imgnegro = new javax.swing.ImageIcon(getClass().getResource("/images/negro.png"));
     private final ImageIcon imgvacio = new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png"));
     boolean presiono = false;
-    private final Movimiento mv=new Movimiento();
+    private final Movimiento mv = new Movimiento();
     private int jugadas = 1;
     private String posiciones[][];
     private final int ficha = 2;
     private final int fichacontraria = 1;
-    String historial;
+    String historial = "Persona" + "\t" + "Maquina" + "\n";
 
     public Tablero() {
         initComponents();
@@ -151,64 +151,88 @@ public class Tablero extends javax.swing.JFrame {
         posiciones = p.coordenadasPosiciones();
     }//GEN-LAST:event_menuCargarMouseClicked
     public void mostrarTablero() {
+        int xd=0;
         for (int i = 0; i < tablero.length; i++) {
             for (int j = 0; j < tablero[0].length; j++) {
-                
-                if (tablero[i][j] == 0) {
-                    campos[i][j].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png")));
-                    campos[i][j].setBackground(new java.awt.Color(111, 37, 3));
-                    campos[i][j].setBorderPainted(false);
-                }
-                if (tablero[i][j] == 1) {
-                    campos[i][j].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/blanco.png")));
-                    campos[i][j].setBackground(new java.awt.Color(111, 37, 3));
-                    campos[i][j].setBorderPainted(false);
-                }
-                if (tablero[i][j] == 2) {
-                    campos[i][j].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
-                    campos[i][j].setBackground(new java.awt.Color(111, 37, 3));
-                    campos[i][j].setBorderPainted(false);
-                }
-                if (tablero[i][j] == 3) {
-                    campos[i][j].setVisible(false);
-                }
+                try {
+                    if (tablero[i][j] == 0) {
+                        campos[i][j].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cafe.png")));
+                        campos[i][j].setBackground(new java.awt.Color(111, 37, 3));
+                        campos[i][j].setBorderPainted(false);
+                    }
+                    if (tablero[i][j] == 1) {
+                        campos[i][j].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/blanco.png")));
+                        campos[i][j].setBackground(new java.awt.Color(111, 37, 3));
+                        campos[i][j].setBorderPainted(false);
+                    }
+                    if (tablero[i][j] == 2) {
+                        campos[i][j].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
+                        campos[i][j].setBackground(new java.awt.Color(111, 37, 3));
+                        campos[i][j].setBorderPainted(false);
+                    }
+                    if (tablero[i][j] == 3) {
+                        campos[i][j].setVisible(false);
+                    }
 
-                //////////////////////////////////////////////////////////////////////////////Otro cuento
-                if (tablero[i][j] == 4) {
-                    campos[i][j].setVisible(true);
-                    campos[i][j].setBackground(new Color(238, 238, 238));
-                    campos[i][j].setBorder(null);
-                    campos[i][j].setEnabled(false);
-                }
-                if (tablero[i][j] == 5) {
-                    campos[i][j].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/borde.png")));
-                    campos[i][j].setOpaque(false);
-                    campos[i][j].setContentAreaFilled(false);
-                    campos[i][j].setBorderPainted(false);
-                }
-                if (tablero[i][j] == 6) {
-                    campos[i][j].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/borde2.png")));
-                    campos[i][j].setOpaque(false);
-                    campos[i][j].setContentAreaFilled(false);
-                    campos[i][j].setBorderPainted(false);
-                }
-                if (tablero[i][j] == 7) {
-                    campos[i][j].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/borde3.png")));
-                    campos[i][j].setOpaque(false);
-                    campos[i][j].setContentAreaFilled(false);
-                    campos[i][j].setBorderPainted(false);
-                }
-                if (tablero[i][j] == 8) {
-                    campos[i][j].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/borde4.png")));
-                    campos[i][j].setOpaque(false);
-                    campos[i][j].setContentAreaFilled(false);
-                    campos[i][j].setBorderPainted(false);
+                    //////////////////////////////////////////////////////////////////////////////Otro cuento
+                    if (tablero[i][j] == 4) {
+                        campos[i][j].setVisible(true);
+                        campos[i][j].setBackground(new Color(238, 238, 238));
+                        campos[i][j].setBorder(null);
+                        campos[i][j].setEnabled(false);
+                    }
+                    if (tablero[i][j] == 5) {
+                        campos[i][j].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/borde.png")));
+                        campos[i][j].setOpaque(false);
+                        campos[i][j].setContentAreaFilled(false);
+                        campos[i][j].setBorderPainted(false);
+                    }
+                    if (tablero[i][j] == 6) {
+                        campos[i][j].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/borde2.png")));
+                        campos[i][j].setOpaque(false);
+                        campos[i][j].setContentAreaFilled(false);
+                        campos[i][j].setBorderPainted(false);
+                    }
+                    if (tablero[i][j] == 7) {
+                        campos[i][j].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/borde3.png")));
+                        campos[i][j].setOpaque(false);
+                        campos[i][j].setContentAreaFilled(false);
+                        campos[i][j].setBorderPainted(false);
+                    }
+                    if (tablero[i][j] == 8) {
+                        campos[i][j].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/borde4.png")));
+                        campos[i][j].setOpaque(false);
+                        campos[i][j].setContentAreaFilled(false);
+                        campos[i][j].setBorderPainted(false);
+                    }
+                } catch (Exception e) {
+                    //JOptionPane.showMessageDialog(null, "Ganaste kappa");
+                    xd=1;
+                    break;
                 }
             }
-
+            if(xd==1){
+                break;
+            }
         }
     }
 
+    private int[] cantidadFichas(int ficha, int fichacontraria) {
+        int cantidad[] = new int[2];
+        for (int i = 0; i < tablero.length; i++) {
+            for (int j = 0; j < tablero[0].length; j++) {
+                if (tablero[i][j] == ficha) {
+                    cantidad[0]++;
+                }
+                if (tablero[i][j] == fichacontraria) {
+                    cantidad[1]++;
+                }
+            }
+        }
+        
+        return cantidad;
+    }
+    
     public void eventosBotones(ActionEvent ev) {
         String coordenadas[] = ev.getActionCommand().split("-");
         int posX = Integer.parseInt(coordenadas[0]);
@@ -219,226 +243,119 @@ public class Tablero extends javax.swing.JFrame {
         System.out.println("posY " + posY);
         System.out.println("angullo45 " + angulo45);
         System.out.println("angluo135 " + angulo135);
+
         List<Integer[]> moves = new ArrayList<>();
+
         if (tablero[posX][posY] == 2 /*&& !presiono*/) {//Marcar un presionado
             campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negroPress.png")));
             presX = Integer.parseInt(coordenadas[0]);
             presY = Integer.parseInt(coordenadas[1]);
             a45 = angulo.getAngulo45(posX, posY);
             a135 = angulo.getAngulo135(posX, posY);
-            //presiono = true;
         } else if (tablero[posX][posY] < 2 /*&& !presiono*/) {
-//Marcar un presionado
-            //Movimiento 45positivo
-            if (tablero[posX][posY] ==1) {
+
+            if (tablero[posX][posY] == 1) {
                 System.out.println("");
             }
-            Integer movimientos[] = mv.posiblesMovimientos(tablero, 0, ficha, fichacontraria, presX, presY, -1, 1);
 
+            //Verificar movimiento en angulo 45 positivo
+            Integer movimientos[] = mv.posiblesMovimientos(tablero, 0, ficha, fichacontraria, presX, presY, -1, 1);
             if (movimientos[4] != 1) {
                 moves.add(movimientos);
             }
 
-            //Movimiento 45negativo
+            //Verificar movimiento en angulo 45 negativo
             movimientos = mv.posiblesMovimientos(tablero, 0, ficha, fichacontraria, presX, presY, 1, -1);
             if (movimientos[4] != 1) {
                 moves.add(movimientos);
             }
-            //Movimiento 135positivo
+
+            //Verificar movimiento en angulo 135 negativo
             movimientos = mv.posiblesMovimientos(tablero, 0, ficha, fichacontraria, presX, presY, 1, 1);
             if (movimientos[4] != 1) {
                 moves.add(movimientos);
             }
-            //Movimiento 135negativo
+            //Verificar movimiento en angulo 135 positivo
             movimientos = mv.posiblesMovimientos(tablero, 0, ficha, fichacontraria, presX, presY, -1, -1);
             if (movimientos[4] != 1) {
                 moves.add(movimientos);
             }
-            //Movimiento Xpositivo
+            //Verificar movimiento en angulo X positivo
             movimientos = mv.posiblesMovimientos(tablero, 0, ficha, fichacontraria, presX, presY, 0, 2);
             if (movimientos[4] != 1) {
                 moves.add(movimientos);
             }
-            //Movimiento Xnegativo
+            //Verificar movimiento en angulo X negativo
             movimientos = mv.posiblesMovimientos(tablero, 0, ficha, fichacontraria, presX, presY, 0, -2);
             if (movimientos[4] != 1) {
                 moves.add(movimientos);
             }
+            //Si la lista de movimientos esta vacia, pues nada
             if (moves.isEmpty()) {
                 campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
-            } else {
-                Minimmax mm=new Minimmax(tablero,posiciones);
-                for (int i = 0; i < moves.size(); i++) {
+            } //Si hay empujes disponibles
+            else {
+                //Inicializa la clase Minimax
+                Minimmax mm = new Minimmax(tablero, posiciones);
 
+                //Recorre los movimientos
+                for (int i = 0; i < moves.size(); i++) {
                     Integer[] m = moves.get(i);
-                    if (m[0] == posX && m[1] == posY && m[2]==0 && m[3]==0) {
+
+                    System.out.println("\nMovimientos: ");
+                    for (int j = 0; j < m.length; j++) {
+                        System.out.print("m[" + j + "]=" + m[j] + " ");
+                    }
+
+                    System.out.println("\nRecordar -> posX=" + posX + " posY=" + posY);
+                    //Si el valor X de donde me podria mover es igual a donde me quiero a mover
+                    //Si el valor Y de donde me podria mover es igual a donde me quiero a mover
+                    if (m[0] == posX && m[1] == posY && m[2] == 0 && m[3] == 0) {
+                        //Actualiza el tablero con el valor de mi ficha (2)
                         tablero[posX][posY] = ficha;
-//
+                        //Actualiza el tablero en mi posicion anterior con 0 (libre)
                         tablero[presX][presY] = 0;
-                        String jug=posiciones[presX][presY]+"-"+posiciones[posX][posY];
-                        tablero=mm.generarArbol(fichacontraria, ficha, jugadas);
-                        historial+=jug+"\t"+mm.jugada+"\n";
+
+                        String jug = posiciones[presX][presY] + "-" + posiciones[posX][posY];
+                        tablero = mm.generarArbol(fichacontraria, ficha, jugadas);
+                        jugadas++;
+
+                        historial += jug + "\t" + mm.jugada + "\n";
                         System.out.println(historial);
                         tajugadas.setText(historial);
-                        
-                    }else if (m[0] == posX && m[1] == posY && m[2]!=0 && m[3]!=0) {
+
+                    } else if (m[0] == posX && m[1] == posY && m[2] != 0 && m[3] != 0) {
                         tablero[posX][posY] = ficha;
                         tablero[m[2]][m[3]] = fichacontraria;
 
                         tablero[presX][presY] = 0;
-                        String jug=posiciones[presX][presY]+"-"+posiciones[posX][posY];
-                        tablero=mm.generarArbol(fichacontraria, ficha, jugadas);
-                        historial+=" "+"\t"+jug+"\t"+mm.jugada+"\n";
+                        String jug = posiciones[presX][presY] + "-" + posiciones[posX][posY];
+                        tablero = mm.generarArbol(fichacontraria, ficha, jugadas);
+                        historial += " " + "\t" + jug + "\t" + mm.jugada + "\n";
                         System.out.println(historial);
                         tajugadas.setText(historial);
                     }
 
                 }
-                
+
             }
-            //presiono = true;
         }
 
-        //Condicionales para mover en 45°, 135° u horizontal
-//        if (tablero[posX][posY] == 0 && presX != 0 && presY != 0 /*&& presiono*/) {
-//            m=new Movimiento(tablero, presX, presY);
-//            //presiono = false;
-//            //Mover 1 ficha 45° ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-//            if ((angulo45 == a45 && (m.adyacencia45Positivo(posX, posY, presX, presY, 1) || m.adyacencia45Negativo(posX, posY, presX, presY, 1)))) {
-//                m.moverFicha(posX, posY, presX, presY, 2, tablero);
-//            } //Mover 2 fichas 45° ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-//            else if ((angulo45 == a45 && (m.adyacencia45Positivo(posX, posY, presX, presY, 2) || m.adyacencia45Negativo(posX, posY, presX, presY, 2)))) {
-//                m.moverFicha(posX, posY, presX, presY, 2, tablero);
-//            }//Mover 3 fichas 45° ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-//            else if ((angulo45 == a45 && (m.adyacencia45Positivo(posX, posY, presX, presY, 3) || m.adyacencia45Negativo(posX, posY, presX, presY, 3)))) {
-//                m.moverFicha(posX, posY, presX, presY, 2, tablero);
-//            }//Mover 1 ficha 135° ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-//            else if ((angulo135 == a135 && (m.adyacencia135Positivo(posX, posY, presX, presY, 1) || m.adyacencia135Negativo(posX, posY, presX, presY, 1)))) {
-//                m.moverFicha(posX, posY, presX, presY, 2, tablero);
-//            }//Mover 2 fichas 135° ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-//            else if ((angulo135 == a135 && (m.adyacencia135Positivo(posX, posY, presX, presY, 2) || m.adyacencia135Negativo(posX, posY, presX, presY, 2)))) {
-//                m.moverFicha(posX, posY, presX, presY, 2, tablero);
-//            }//Mover 3 fichas 135° ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 
-//            else if ((angulo135 == a135 && (m.adyacencia135Positivo(posX, posY, presX, presY, 3) || m.adyacencia135Negativo(posX, posY, presX, presY, 3)))) {
-//                m.moverFicha(posX, posY, presX, presY, 2, tablero);
-//            }//Mover 1 ficha horizontalmente ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-//            else if ((m.adyacenciaXPositivo(posX, posY, presX, presY, 1) || m.adyacenciaXNegativo(posX, posY, presX, presY, 1))) {
-//                m.moverFicha(posX, posY, presX, presY, 2, tablero);
-//            }//Mover 2 fichas horizontalmente ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 
-//            else if ((m.adyacenciaXPositivo(posX, posY, presX, presY, 2) || m.adyacenciaXNegativo(posX, posY, presX, presY, 2))) {
-//                m.moverFicha(posX, posY, presX, presY, 2, tablero);
-//            }//Mover 3 fichas horizontalmente ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 
-//            else if ((m.adyacenciaXPositivo(posX, posY, presX, presY, 3) || m.adyacenciaXNegativo(posX, posY, presX, presY, 3))) {
-//                m.moverFicha(posX, posY, presX, presY, 2, tablero);
-//            }
-//            System.out.println(jugadas+"." +posiciones[presX][presY]+"-"+posiciones[posX][posY]);
-//            presX = 0;
-//            presY = 0;
-//            Minimmax mm=new Minimmax(tablero);
-//            jugadas++;
-//            tablero=mm.generarArbol(1, 2,jugadas);
-//            
-//            //mm.imprimirTablero();
-//            
-//        }
-//
-//        //Condicionales para empujar rivales en 45°, 135° u horizontal
-//        if (tablero[posX][posY] == 1 && presX != 0 && presY != 0 /*&& presiono*/) {
-//            //presiono = false;
-//            //Empujar 1 ficha en 45° positivo ↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗
-//            /*if ((angulo45 == a45 && m.m.adyacencia45Positivo(posX, posY, presX, presY, 1) && cantidadRivales45(posX, posY, 1) < 1)) {
-//                fuerablanco += m.empujarRival(posX, posY, posX, posY, 2, 1, imgnegro, imgblanco);
-//            }*/
-//            
-//            
-//           
-//
-//            //Empujar 2 fichas en 45° positivo ↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗
-//            if ((angulo45 == a45 && m.adyacencia45Positivo(posX, posY, presX, presY, 2) && m.cantidadRivales45(posX, posY, 1) < 2)) {
-//                fuerablanco += m.empujarRival(posX, posY, posX + 1, posY - 1, 2, 1, tablero);
-//            }//Empujar 2 fichas en 45° negativo ↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘
-//            else if (angulo45 == a45 && m.adyacencia45Negativo(posX, posY, presX, presY, 2) && m.cantidadRivales45(posX, posY, 1) < 2) {
-//                fuerablanco += m.empujarRival(posX, posY, posX - 1, posY + 1, 2, 1, tablero);
-//            }//Empujar 3 fichas en 45° negativo ↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗
-//            else if ((angulo45 == a45 && (m.adyacencia45Positivo(posX, posY, presX, presY, 3)) && m.cantidadRivales45(posX, posY, 1) < 3)) {
-//                if (m.cantidadRivales45(posX, posY, 1) == 2) {
-//                    fuerablanco += m.empujarRival(posX, posY, posX + 2, posY - 2, 2, 1, tablero);
-//                } else {
-//                    fuerablanco += m.empujarRival(posX, posY, posX + 1, posY - 1, 2, 1, tablero);
-//                }
-//
-//            }//Empujar 3 fichas en 45° negativo ↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘
-//            else if ((angulo45 == a45 && (m.adyacencia45Negativo(posX, posY, presX, presY, 3)) && m.cantidadRivales45(posX, posY, 1) < 3)) {
-//                if (m.cantidadRivales45(posX, posY, 1) == 2) {
-//                    fuerablanco += m.empujarRival(posX, posY, posX - 2, posY + 2, 2, 1, tablero);
-//                } else {
-//                    fuerablanco += m.empujarRival(posX, posY, posX - 1, posY + 1, 2, 1, tablero);
-//                }
-//
-//            }//Empujar 2 fichas en 135° positivo ↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗
-//            else if ((angulo135 == a135 && (m.adyacencia135Positivo(posX, posY, presX, presY, 2) && m.cantidadRivales135(posX, posY, 1) < 2))) {
-//                fuerablanco += m.empujarRival(posX, posY, posX - 1, posY - 1, 2, 1, tablero);
-//            }//Empujar 2 fichas en 135° negativo ↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘
-//            else if ((angulo135 == a135 && m.adyacencia135Negativo(posX, posY, presX, presY, 2) && m.cantidadRivales135(posX, posY, 1) < 2)) {
-//                fuerablanco += m.empujarRival(posX, posY, posX + 1, posY + 1, 2, 1, tablero);
-//            }//Empujar 3 fichas en 135° positivo ↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗↗
-//            else if ((angulo135 == a135 && (m.adyacencia135Positivo(posX, posY, presX, presY, 3) && m.cantidadRivales135(posX, posY, 1) < 3))) {
-//                if (m.cantidadRivales135(posX, posY, 1) == 2) {
-//                    fuerablanco += m.empujarRival(posX, posY, posX - 2, posY - 2, 2, 1, tablero);
-//                } else {
-//                    fuerablanco += m.empujarRival(posX, posY, posX - 1, posY - 1, 2, 1, tablero);
-//                }
-//
-//            }//Empujar 3 fichas en 135° negativo ↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘
-//            else if ((angulo135 == a135 && m.adyacencia135Negativo(posX, posY, presX, presY, 3) && m.cantidadRivales135(posX, posY, 1) < 3)) {
-//                if (m.cantidadRivales135(posX, posY, 1) == 2) {
-//                    fuerablanco += m.empujarRival(posX, posY, posX + 2, posY + 2, 2, 1, tablero);
-//                } else {
-//                    fuerablanco += m.empujarRival(posX, posY, posX + 1, posY + 1, 2, 1, tablero);
-//                }
-//
-//            }//Empujar 2 fichas horizonalmente positivo →→→→→→→→→→→→→→→→→→→→
-//            else if (m.adyacenciaXPositivo(posX, posY, presX, presY, 2) && m.cantidadRivalesX(posX, posY, 1) < 2) {
-//                fuerablanco += m.empujarRival(posX, posY, posX, posY - 2, 2, 1, tablero);
-//            }//Empujar 2 fichas horizonalmente negativo ←←←←←←←←←←←←←←←←←←←←
-//            else if ((m.adyacenciaXNegativo(posX, posY, presX, presY, 2) && m.cantidadRivalesX(posX, posY, 1) < 2)) {
-//                fuerablanco += m.empujarRival(posX, posY, posX, posY + 2, 2, 1, tablero);
-//            }//Empujar 3 fichas horizonalmente positivo →→→→→→→→→→→→→→→→→→→→
-//            else if (((m.adyacenciaXPositivo(posX, posY, presX, presY, 3) && m.cantidadRivalesX(posX, posY, 1) < 3))) {
-//                if (m.cantidadRivalesX(posX, posY, 1) == 2) {
-//                    fuerablanco += m.empujarRival(posX, posY, posX, posY - 4, 2, 1, tablero);
-//                } else {
-//                    fuerablanco += m.empujarRival(posX, posY, posX, posY - 2, 2, 1, tablero);
-//                }
-//                
-//            }//Empujar 3 fichas horizonalmente negativo ←←←←←←←←←←←←←←←←←←←←
-//            else if ((m.adyacenciaXNegativo(posX, posY, presX, presY, 3) && m.cantidadRivalesX(posX, posY, 1) < 3)) {
-//                if (m.cantidadRivalesX(posX, posY, 1) == 2) {
-//                    fuerablanco += m.empujarRival(posX, posY, posX, posY + 4, 2, 1, tablero);
-//                } else {
-//                    fuerablanco += m.empujarRival(posX, posY, posX, posY + 2, 2, 1, tablero);
-//                }
-//                
-//            }
-//            presX = 0;
-//            presY = 0;
-//        } else if (tablero[posX][posY] == 2 /*&& !presiono*/) {//Marcar un presionado
-//            campos[posX][posY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negroPress.png")));
-//            presX = Integer.parseInt(coordenadas[0]);
-//            presY = Integer.parseInt(coordenadas[1]);
-//            a45 = angulo.getAngulo45(posX, posY);
-//            a135 = angulo.getAngulo135(posX, posY);
-//            //presiono = true;
-//        } else if (tablero[presX][presY] == 2 /*&& presiono*/) {//Si vuelven a presionar uno que ya estaba presionado, lo desmarca (no lo movera)
-//            campos[presX][presY].setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/negro.png")));
-//            //presiono = false;
-//        }
-        System.out.println("--");
+        System.out.println("\n--");
         System.out.println("presX " + presX);
         System.out.println("presY " + presY);
         System.out.println("a45 " + a45);
         System.out.println("a135 " + a135);
-        System.out.println("||||||||||||||||");
+        System.out.println("=============================");
+        
+        int idk[]=cantidadFichas(1,2);
+        if(idk[0]==6){
+            JOptionPane.showMessageDialog(null, "Has ganado");
+        }
+        if(idk[1]==6){
+            JOptionPane.showMessageDialog(null, "Gana IA");
+        }
+        
         mostrarTablero();
         if (fuerablanco == 6) {
             JOptionPane.showMessageDialog(this, "Has ganado");

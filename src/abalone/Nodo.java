@@ -1,8 +1,9 @@
 package abalone;
 
 public class Nodo {
+
     private int id;
-    private int[][]tablero;
+    private int[][] tablero;
     int heuristicacentro;
     int heuristicaborde;
     int heuristicatotal;
@@ -13,21 +14,18 @@ public class Nodo {
     private String jugada;
     private int idpadre;
 
-    
-
-    public Nodo(int id, int[][] tablero, int heuristicacentro, int heuristicaborde, int heuristicatotal,int diferenciafichas,int tresenlinea, boolean expandido,int profundidad,String jugada, int idpadre) {
+    public Nodo(int id, int[][] tablero, int heuristicacentro, int heuristicaborde, int heuristicatotal, int diferenciafichas, int tresenlinea, boolean expandido, int profundidad, String jugada, int idpadre) {
         this.id = id;
         this.tablero = tablero;
         this.heuristicacentro = heuristicacentro;
         this.heuristicaborde = heuristicaborde;
         this.heuristicatotal = heuristicatotal;
-        this.diferenciafichas=diferenciafichas;
-        this.tresenlinea=tresenlinea;
+        this.diferenciafichas = diferenciafichas;
+        this.tresenlinea = tresenlinea;
         this.expandido = expandido;
-        this.profundidad=profundidad;
-        this.jugada=jugada;
+        this.profundidad = profundidad;
+        this.jugada = jugada;
         this.idpadre = idpadre;
-    
     }
 
     public String getJugada() {
@@ -37,7 +35,6 @@ public class Nodo {
     public void setJugada(String jugada) {
         this.jugada = jugada;
     }
-    
 
     public int getProfundidad() {
         return profundidad;
@@ -46,7 +43,6 @@ public class Nodo {
     public void setProfundidad(int profundidad) {
         this.profundidad = profundidad;
     }
-    
 
     public int getTresenlinea() {
         return tresenlinea;
@@ -55,8 +51,6 @@ public class Nodo {
     public void setTresenlinea(int tresenlinea) {
         this.tresenlinea = tresenlinea;
     }
-    
-    
 
     public int getDiferenciafichas() {
         return diferenciafichas;
@@ -65,7 +59,6 @@ public class Nodo {
     public void setDiferenciafichas(int diferenciafichas) {
         this.diferenciafichas = diferenciafichas;
     }
-    
 
     public int getHeuristicaborde() {
         return heuristicaborde;
@@ -82,8 +75,6 @@ public class Nodo {
     public void setHeuristicatotal(int heuristicatotal) {
         this.heuristicatotal = heuristicatotal;
     }
-    
-    
 
     public int getId() {
         return id;
@@ -124,6 +115,5 @@ public class Nodo {
     public void setIdpadre(int idpadre) {
         this.idpadre = idpadre;
     }
-    
-    
+
 }

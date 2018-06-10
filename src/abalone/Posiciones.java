@@ -13,7 +13,7 @@ public class Posiciones {
     }
 
     public String[][] coordenadasPosiciones() {
-        
+
         for (int i = 0; i < tablero[0].length; i++) {
             String cadena = "";
             switch (i) {
@@ -73,11 +73,11 @@ public class Posiciones {
             }
             for (int j = 0; j < tablero.length; j++) {
                 if (tablero[j][i] < 3) {
-                    String aux=cadena;
-                    cadena+=j;
-                    posiciones[j][i]=cadena;
-                    System.out.println(cadena);
-                    cadena=aux;
+                    String aux = cadena;
+                    cadena += j;
+                    posiciones[j][i] = cadena;
+                    System.out.print(cadena + " ");
+                    cadena = aux;
                 }
 
             }
