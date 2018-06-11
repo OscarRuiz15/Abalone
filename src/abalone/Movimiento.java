@@ -8,15 +8,12 @@ public class Movimiento {
 
     //METODO POSIBLES MOVIMIENTOS SOLO TIENE EN CUENTA LOS DOS PRIMEROS VALORES DEL VECTOR, INDICANDO EL X,Y A DONDE SE PODRIA MOVER
     //METODO POSIBLE EMPUJE SOLO TIENE EN CUENTA LOS DOS SIGUIENTES VALORES DEL VECTOR, INDICANDO EL X,Y DEL RIVAL QUE PODRIA EMPUJAR
-    
     //Entonces, el vector V que retorna esta clase contiene:
     //v[0]-> Posicion X a donde se puede mover
     //v[1]-> Posicion Y a donde se puede mover
     //v[2]-> Posicion X del rival que podria empujar
     //v[3]-> Posicion Y del rival que podria empujar
     //v[4]-> 0 si es valido, 1 si no es valido 
-    
-    
     //Recibe el tablero, un contador para saber cuantas empuja, el id de la ficha, el id de la ficha contraria, la posicion x, y
     //n1 y n2 es para saber si es angulo 45, 135 u horizontalmente
     public Integer[] posiblesMovimientos(int tablero[][], int contador, int ficha, int fichacontraria, int x, int y, int n1, int n2) {
@@ -59,7 +56,10 @@ public class Movimiento {
 
     private Integer[] posibleEmpuje(int[][] tablero, int contador, int ficha, int fichacontraria, int x, int y, int n1, int n2, int contadorcontrarias, Integer v[]) {
         //Si se encuentra en un borde
-        if ((x >= 10 || y >= 18 || x <= 0 || y <= 0) && contador > contadorcontrarias) {
+        if (x > 10 || y > 18 || x < 0 || y < 0) {
+            v[4] = 1;
+        }
+        else if ((x >= 10 || y >= 18 || x <= 0 || y <= 0) && contador > contadorcontrarias) {
             v[2] = 0;
             v[3] = 0;
             v[4] = 0;

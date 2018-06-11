@@ -119,7 +119,7 @@ public class Minimmax {
                 }
             }
         }
-        
+
         //Hace el minmax para calcular el tablero (nodo) con menor heuristica y lo retorna para mostrarlo en pantalla
         int[][] t = imprimirTablero();
         return t;
@@ -153,11 +153,10 @@ public class Minimmax {
     }
 
     private int[] posibleEmpuje(int[][] tablero, int contador, int ficha, int fichacontraria, int x, int y, int n1, int n2, int contadorcontrarias, int v[]) {
-        
-        if(x > 10 || y > 18 || x < 0 || y < 0){
+
+        if (x > 10 || y > 18 || x < 0 || y < 0) {
             v[4] = 1;
-        }
-        else if ((x >= 10 || y >= 18 || x <= 0 || y <= 0) && contador > contadorcontrarias) {
+        } else if ((x >= 10 || y >= 18 || x <= 0 || y <= 0) && contador > contadorcontrarias) {
             v[2] = 0;
             v[3] = 0;
             v[4] = 0;
@@ -270,18 +269,18 @@ public class Minimmax {
             int hborde = heuristicaBorde(tab, fichacontraria) - heuristicaBorde(tab, ficha);
             int diferencia = diferenciaFichas(tab, ficha, fichacontraria);
             int tresenlinea = heuristica3EnLinea(tab, ficha) - heuristica3EnLinea(tab, fichacontraria);
-            
+
             int mult;
             if (contador % 2 == 0) {
                 mult = -1;
             } else {
                 mult = 1;
             }
-            
+
             int heuristica = (hcentro + hborde + diferencia + tresenlinea);
             heuristica *= mult;
             String jug = posiciones[j][k] + "-" + posiciones[movimientos[0]][movimientos[1]];
-            
+
             //Crea el nodo con su id, tablero, heuristicas, su profundidad, la jugada que se realizo y el id del padre
             Nodo n = new Nodo(nodos.size(), tab, hcentro, hborde, heuristica, diferencia, tresenlinea, false, contador, jug, idpadre);
             nodos.add(n);
@@ -347,7 +346,7 @@ public class Minimmax {
                 }
             }
         }
-        
+
         for (int i = profundidad; i >= 0; i--) {
             for (int j = 0; j < nodos.size(); j++) {
                 if (nodos.get(j).getProfundidad() == i) {
@@ -365,7 +364,7 @@ public class Minimmax {
                     System.out.print(nodos.get(j).getId() + " ; " + nodos.get(j).getHeuristicatotal() + " ; " + nodos.get(j).getIdpadre() + " || ");
                 }
             }
-            
+
             System.out.println("\n");
 
         }

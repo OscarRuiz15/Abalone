@@ -151,7 +151,7 @@ public class Tablero extends javax.swing.JFrame {
         posiciones = p.coordenadasPosiciones();
     }//GEN-LAST:event_menuCargarMouseClicked
     public void mostrarTablero() {
-        int xd=0;
+        int xd = 0;
         for (int i = 0; i < tablero.length; i++) {
             for (int j = 0; j < tablero[0].length; j++) {
                 try {
@@ -207,11 +207,11 @@ public class Tablero extends javax.swing.JFrame {
                     }
                 } catch (Exception e) {
                     //JOptionPane.showMessageDialog(null, "Ganaste kappa");
-                    xd=1;
+                    xd = 1;
                     break;
                 }
             }
-            if(xd==1){
+            if (xd == 1) {
                 break;
             }
         }
@@ -229,10 +229,10 @@ public class Tablero extends javax.swing.JFrame {
                 }
             }
         }
-        
+
         return cantidad;
     }
-    
+
     public void eventosBotones(ActionEvent ev) {
         String coordenadas[] = ev.getActionCommand().split("-");
         int posX = Integer.parseInt(coordenadas[0]);
@@ -302,12 +302,12 @@ public class Tablero extends javax.swing.JFrame {
                 for (int i = 0; i < moves.size(); i++) {
                     Integer[] m = moves.get(i);
 
-                    System.out.println("\nMovimientos: ");
-                    for (int j = 0; j < m.length; j++) {
-                        System.out.print("m[" + j + "]=" + m[j] + " ");
-                    }
+                    /*System.out.println("\nMovimientos: ");
+                     for (int j = 0; j < m.length; j++) {
+                     System.out.print("m[" + j + "]=" + m[j] + " ");
+                     }
 
-                    System.out.println("\nRecordar -> posX=" + posX + " posY=" + posY);
+                     System.out.println("\nRecordar -> posX=" + posX + " posY=" + posY);*/
                     //Si el valor X de donde me podria mover es igual a donde me quiero a mover
                     //Si el valor Y de donde me podria mover es igual a donde me quiero a mover
                     if (m[0] == posX && m[1] == posY && m[2] == 0 && m[3] == 0) {
@@ -347,19 +347,15 @@ public class Tablero extends javax.swing.JFrame {
         System.out.println("a45 " + a45);
         System.out.println("a135 " + a135);
         System.out.println("=============================");
-        
-        int idk[]=cantidadFichas(1,2);
-        if(idk[0]==6){
+
+        int idk[] = cantidadFichas(1, 2);
+        if (idk[0] == 6) {
             JOptionPane.showMessageDialog(null, "Has ganado");
         }
-        if(idk[1]==6){
+        if (idk[1] == 6) {
             JOptionPane.showMessageDialog(null, "Gana IA");
         }
-        
         mostrarTablero();
-        if (fuerablanco == 6) {
-            JOptionPane.showMessageDialog(this, "Has ganado");
-        }
 
     }
 
