@@ -72,7 +72,7 @@ public class Tablero extends javax.swing.JFrame {
         menuCargar = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Maraton de robots");
+        setTitle("Abalone");
 
         panelCampos.setMinimumSize(new java.awt.Dimension(0, 600));
         panelCampos.setPreferredSize(new java.awt.Dimension(699, 0));
